@@ -1,12 +1,26 @@
-# Conectar maida.cl: NIC Chile → Cloudflare → GitHub Pages
+# maida.cl · Configuración activa
 
-NIC Chile es el registrador. Cloudflare puede administrar los registros DNS y GitHub Pages sirve esta página estática. No se requiere contratar un servidor.
+Comprobada el 26 de octubre de 2026.
 
-## 1. Agregar el dominio en Cloudflare
+- Sitio principal: https://maida.cl/
+- https://www.maida.cl/ redirige a https://maida.cl/.
+- http://maida.cl/ redirige a HTTPS.
+- GitHub Pages publica la rama `gh-pages`, raíz `/`.
+- Dominio personalizado `maida.cl`, con HTTPS obligatorio habilitado.
+- Certificado aprobado para `maida.cl` y `www.maida.cl`.
+- Dominio verificado en la cuenta GitHub `JsCode7` mediante TXT.
+- Cloudflare completó la activación del dominio, en plan Free.
 
-En la cuenta de Cloudflare, agregar el dominio `maida.cl` y seleccionar el plan Free. Revisar cualquier registro detectado y preservar los registros existentes de correo u otros servicios que deban mantenerse.
+## Nameservers
 
-## 2. Preparar estos registros en Cloudflare
+NIC Chile ya delegaba a estos nameservers cuando se realizó la conexión:
+
+- `earl.ns.cloudflare.com`
+- `josephine.ns.cloudflare.com`
+
+No fue necesario modificar NIC Chile durante la configuración.
+
+## Registros DNS de Cloudflare
 
 | Tipo | Nombre | Destino | Proxy |
 | --- | --- | --- | --- |
@@ -15,26 +29,19 @@ En la cuenta de Cloudflare, agregar el dominio `maida.cl` y seleccionar el plan 
 | A | @ | 185.199.110.153 | Solo DNS |
 | A | @ | 185.199.111.153 | Solo DNS |
 | CNAME | www | jscode7.github.io | Solo DNS |
+| TXT | _github-pages-challenge-jscode7 | Valor asignado por GitHub, guardado en Cloudflare | No aplica |
 
-TTL automático. No incluir `https://` ni `/maida/` en el destino CNAME. Para la conexión inicial usar nube gris (Solo DNS). Revisar registros A/AAAA/CNAME previos de `@` y `www` para evitar destinos incompatibles; no cambiar registros de correo.
+TTL automático. Conservar el TXT para mantener la verificación de propiedad. Los registros web usan Solo DNS: el contenido y el certificado HTTPS los sirve GitHub Pages.
 
-## 3. Delegar desde NIC Chile
+## Publicaciones futuras
 
-Cloudflare asignará **dos nameservers específicos** al dominio. Copiar exactamente esos dos nombres en la administración de `maida.cl` en NIC Chile. No copiar nameservers de ejemplos. Si existe DNSSEC previo, seguir el procedimiento de transición de Cloudflare y NIC Chile antes de cambiar la delegación.
+El archivo `dist/CNAME` contiene `maida.cl`. Conservarlo para mantener el dominio entre publicaciones. `dist/index.html` contiene la URL canónica y la imagen social con el dominio definitivo.
 
-## 4. Configurar GitHub Pages
+Después de guardar los cambios en un commit de `main`, ejecutar `npm run publish`. El comando comprueba los recursos, sube el código y publica exclusivamente `dist/`, preservando el historial de `gh-pages`. No requiere forzar cambios de historial.
 
-Antes de publicar la delegación DNS, configurar `maida.cl` en Settings → Pages → Custom domain del repositorio. Es recomendable verificar la propiedad desde los ajustes de Pages de la cuenta: GitHub proporciona el registro TXT específico para añadir en Cloudflare.
+## Cuando abra Shopify
 
-El sitio publica desde la rama `gh-pages`: configurar el dominio en Settings → Pages y crear también `dist/CNAME` con una sola línea: `maida.cl`. Así, las publicaciones siguientes conservan el dominio. Esperar la validación DNS y la emisión del certificado; activar **Enforce HTTPS** cuando esté disponible. Verificar tanto `https://maida.cl` como `https://www.maida.cl`.
-
-Actualizar entonces en `dist/index.html` el metadato `og:image` para usar `https://maida.cl/assets/hero.webp`, agregar `<link rel="canonical" href="https://maida.cl/">` y actualizar la dirección pública en README.
-
-Hasta que la delegación pueda completarse, mantener el sitio accesible en https://jscode7.github.io/maida/ sin establecer todavía una redirección hacia un dominio que no resuelve.
-
-## Estado al preparar el proyecto
-
-El 26 de octubre de 2026 la consulta pública de `maida.cl` no devolvía registros A ni NS. El usuario está creando su cuenta de Cloudflare. No se han inventado nameservers ni modificado registros en NIC Chile.
+Revisar los valores DNS actuales entregados por Shopify, actualizar solo los registros web que correspondan en Cloudflare y retirar el dominio personalizado de GitHub Pages. No es necesario cambiar la delegación de NIC Chile. Preservar cualquier registro de correo u otros servicios que se agregue en el futuro.
 
 ## Referencias oficiales
 
