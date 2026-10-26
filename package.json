@@ -1,0 +1,10 @@
+{
+  "name": "maida-proximamente",
+  "version": "1.0.0",
+  "private": true,
+  "description": "La bienvenida a Maida, papelería kawaii. Sitio estático para GitHub Pages.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node --check dist/script.js && node scripts/check.mjs"
+  }
+}

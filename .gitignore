@@ -1,0 +1,7 @@
+# Campañas originales que ya estaban en la carpeta local.
+/campana-maida-12/
+/maida-informacion-y-marca-12/
+/node_modules/
+/.local/
+.DS_Store
+Thumbs.db

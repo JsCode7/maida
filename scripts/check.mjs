@@ -1,0 +1,12 @@
+import { readFile, access } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const html = await readFile('dist/index.html', 'utf8');
+const css = await readFile('dist/styles.css', 'utf8');
+const files = [...html.matchAll(/(?:src|href)="([^"#][^"]*)"/g)].map(m => m[1]).filter(p => p !== './' && !/^https?:/.test(p));
+files.push(...[...css.matchAll(/url\(['"]?([^)'"\s]+)/g)].map(m => m[1]));
+for (const path of new Set(files)) await access('dist/' + path);
+for (const [, id] of html.matchAll(/href="#([^"]+)"/g)) assert(html.includes(`id="${id}"`), `Ancla ausente: ${id}`);
+assert(html.includes('lang="es-CL"'));
+assert(css.includes('prefers-reduced-motion'));
+assert(!html.includes('<form'), 'La página informativa no recoge datos');
+console.log(`OK: ${new Set(files).size} recursos locales, anclas y ajustes de accesibilidad.`);
