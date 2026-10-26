@@ -24,7 +24,17 @@ Comprueba sintaxis JavaScript, existencia de imágenes, fuentes, estilos y enlac
 
 ## Publicación
 
-Cada push a `main` comprueba y publica exclusivamente `dist/` mediante `.github/workflows/pages.yml`. En GitHub → Settings → Pages, la fuente debe ser **GitHub Actions**. Las campañas originales que ya estaban en esta carpeta se conservan localmente y están excluidas de Git.
+En GitHub → Settings → Pages la fuente es **Deploy from a branch**, rama **gh-pages**, carpeta **/ (root)**. La rama `main` conserva el proyecto y `gh-pages` contiene exclusivamente los archivos de `dist/`.
+
+Después de guardar los cambios en un commit de `main`, ejecutar:
+
+```sh
+npm run publish
+```
+
+El comando comprueba los archivos, sube `main` y publica el contenido confirmado de `dist/` en `gh-pages`. GitHub ejecuta entonces su publicación nativa de Pages. Un push de `main` por sí solo no modifica el sitio. Las campañas originales que ya estaban en esta carpeta se conservan localmente y están excluidas de Git.
+
+Se eligió esta modalidad porque la cuenta reportó un bloqueo de facturación al ejecutar un workflow personalizado de Actions. El sitio no necesita ese workflow ni un proceso de compilación.
 
 ## Contenido y diseño
 

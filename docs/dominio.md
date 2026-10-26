@@ -26,7 +26,7 @@ Cloudflare asignará **dos nameservers específicos** al dominio. Copiar exactam
 
 Antes de publicar la delegación DNS, configurar `maida.cl` en Settings → Pages → Custom domain del repositorio. Es recomendable verificar la propiedad desde los ajustes de Pages de la cuenta: GitHub proporciona el registro TXT específico para añadir en Cloudflare.
 
-El sitio usa GitHub Actions: el dominio se configura en Settings → Pages, no mediante un archivo CNAME. Esperar la validación DNS y la emisión del certificado; activar **Enforce HTTPS** cuando esté disponible. Verificar tanto `https://maida.cl` como `https://www.maida.cl`.
+El sitio publica desde la rama `gh-pages`: configurar el dominio en Settings → Pages y crear también `dist/CNAME` con una sola línea: `maida.cl`. Así, las publicaciones siguientes conservan el dominio. Esperar la validación DNS y la emisión del certificado; activar **Enforce HTTPS** cuando esté disponible. Verificar tanto `https://maida.cl` como `https://www.maida.cl`.
 
 Actualizar entonces en `dist/index.html` el metadato `og:image` para usar `https://maida.cl/assets/hero.webp`, agregar `<link rel="canonical" href="https://maida.cl/">` y actualizar la dirección pública en README.
 
