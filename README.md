@@ -3,8 +3,9 @@
 Landing informativa de papelería kawaii: HTML, CSS y JavaScript sin framework, dependencias de ejecución, formulario, contador ni fecha de apertura.
 
 - Repositorio: https://github.com/JsCode7/maida
-- Publicación inicial: https://jscode7.github.io/maida/
-- Dominio previsto: https://maida.cl (pendiente de configurar DNS y dominio en Pages).
+- Dominio principal: https://maida.cl
+- Alias: https://www.maida.cl
+- Dirección de GitHub Pages: https://jscode7.github.io/maida/ (redirige al dominio principal).
 
 ## Desarrollo
 
@@ -50,6 +51,6 @@ Se eligió esta modalidad porque la cuenta reportó un bloqueo de facturación a
 
 ## Dominio
 
-Ver [Configuración de maida.cl](docs/dominio.md). Mientras el DNS no esté listo, conservar la URL de GitHub Pages como dirección pública operativa. Después de conectar el dominio, cambiar `og:image` a `https://maida.cl/assets/hero.webp` y agregar la URL canónica `https://maida.cl/`.
+Ver [Configuración de maida.cl](docs/dominio.md). El dominio personalizado está configurado en Pages y en `dist/CNAME`; la URL canónica y los metadatos sociales usan `https://maida.cl/`.
 
 Cuando se lance Shopify, actualizar los registros de Cloudflare usando los valores actuales que entregue Shopify y retirar el dominio personalizado de GitHub Pages. La landing no necesita acceder a la cuenta ni a las claves de Shopify.
